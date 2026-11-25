@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>The gambler's fallacy and how much a learner has seen</title>
+<style>
+@page { size: A4; margin: 15mm 17mm; }
+body { font-family: Georgia, "Times New Roman", serif; font-size: 10.4pt; line-height: 1.38; color: #1c1c1c; }
+h1 { font-size: 16pt; margin: 0 0 2pt; }
+.by { color: #555; font-size: 9.5pt; margin: 0 0 8pt; }
+h2 { font-size: 11pt; margin: 9pt 0 2pt; }
+p { margin: 0 0 4pt; }
+table { border-collapse: collapse; margin: 4pt 0 5pt; font-size: 9.8pt; }
+th, td { border: 1px solid #999; padding: 2pt 8pt; text-align: left; }
+th { background: #f0f0f0; }
+.link { margin-top: 8pt; }
+</style></head><body>
+<h1>The gambler's fallacy and how much a learner has seen</h1>
+<p class="by">Kamilya Mukh, a short explainer for the interactive page</p>
+
+<h2>The question</h2>
+<p>Why do we expect tails after three heads in a row? It feels wrong, because a fair coin has no memory. Professor Dorst's paper says the feeling can come from careful reasoning. A learner who is not sure the process is independent may sensibly expect a switch after a short streak.</p>
+
+<h2>The model, in short</h2>
+<p>The learner knows the coin lands heads half the time. It does not know the process behind it. The process could be Steady (every flip is a fresh 50%), Switchy (a streak makes a switch more likely) or Sticky (a streak makes a continuation more likely). The learner starts equally unsure about the three and updates by Bayes' rule after every flip. The coin is really fair, so Sticky gets ruled out faster than Switchy. That leaves the learner leaning Switchy, so after a short streak it expects a switch. A long streak is evidence for Sticky, so after enough hits the expectation turns into a continuation.</p>
+
+<h2>The slider: how much has the learner already seen?</h2>
+<p>This is the main slider on the page. Take an adult who has just started a board game with a coin flip in it, and another who has played it for years. The newcomer should switch sooner to expecting a streak to continue, and expect it more strongly. The veteran is almost sure the flips are Steady, so stays close to 50%.</p>
+
+<h2>Worked example 1: one coin, two learners</h2>
+<p>Both learners watch the same simulated coin (number 330). Learner A has seen its first 10 flips (HTTHTTTHHH). Learner B has seen the first 40. Then both are shown one miss followed by five hits. Learner A ends up 66.2% sure the process is Sticky (0.9% Switchy) and gives 76.1% to a sixth hit. Learner B is 96.7% sure it is Steady and gives 50.7%. Same coin, same streak. The learner with less experience reads the streak as a hot process, and the one with more hardly changes its mind.</p>
+
+<h2>Worked example 2: the average learner</h2>
+<p>The curves on the page average over 1000 simulated learners, so one lucky coin does not decide anything.</p>
+<table>
+<tr><th>Outcomes seen</th><th>First streak where the average learner expects a continuation</th><th>Chance of a continuation after 8 in a row</th></tr>
+<tr><td>10</td><td>3</td><td>85.3%</td></tr>
+<tr><td>40</td><td>5</td><td>60.6%</td></tr>
+<tr><td>100</td><td>6</td><td>50.5%</td></tr>
+</table>
+<p>With less experience the shift comes sooner and is stronger, as Professor Dorst wrote in his reply.</p>
+
+<h2>What the page does not say</h2>
+<p>The numbers come from a simulation with the paper's default settings, not from people. The page does not model working memory: experience here means outcomes seen and remembered perfectly. Milan Gorislavets built the page, and its numbers agree closely with the ones printed in the paper. Any mistakes are ours.</p>
+
+<p class="link">The page: https://gamblers-fallacy-page.gorislavetsmilan123.workers.dev</p>
+</body></html>

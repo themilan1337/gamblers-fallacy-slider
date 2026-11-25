@@ -1,0 +1,6 @@
+{
+  "cases": 50,
+  "numbers_compared": 4044,
+  "max_abs_difference": 4.951594689828198e-14,
+  "tolerance_required": 1e-09
+}

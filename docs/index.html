@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Gambler's fallacy and experience</title>
+  <meta name="description" content="An interactive page for the causal-uncertainty model of the gambler's fallacy: how many outcomes a rational learner has already seen, and when it starts to expect a streak to continue.">
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-busy="1">
+<noscript><p class="noscript">This page needs JavaScript: the charts and tables are computed in your browser by the model in <code>model.js</code>. Nothing is sent anywhere.</p></noscript>
+<a class="skip" href="#controls">Skip to the controls</a>
+<div class="wrap">
+  <header class="top">
+    <h1>How much has the learner already seen? A rational account of the gambler's fallacy</h1>
+    <p class="lede">
+      A person who is not sure whether a process is independent will, on average, expect a streak to
+      switch after a few repeats and to continue after many. How soon that shift comes depends on how
+      many outcomes the person has already seen. This page lets you move that number.
+    </p>
+    <p class="small">
+      An independent implementation of the model in Kevin Dorst, <a href="https://doi.org/10.1111/cogs.70171">&ldquo;Bayesians Commit the Gambler's Fallacy&rdquo;</a>,
+      <em>Cognitive Science</em> 50(1), e70171 (2026). Built by Milan Gorislavets and Kamilya Mukh, who answer for any mistakes.
+      Not written or endorsed by the paper's author.
+    </p>
+  </header>
+
+  <main>
+    <section aria-labelledby="idea">
+      <h2 id="idea">The idea in four lines</h2>
+      <ul class="tight">
+        <li>A learner watches a process with a known 50% hit rate (a coin, a parking spot that goes to one of two cars). It does not know whether the process is <strong>Steady</strong> (independent), <strong>Switchy</strong> (a streak makes a switch more likely) or <strong>Sticky</strong> (a streak makes a continuation more likely).</li>
+        <li>The learner starts equally unsure between the three, then updates by Bayes' rule on every outcome it has seen. The data really do come from a fair coin.</li>
+        <li>Fair-coin data rule out Sticky faster than Switchy, so on average the learner leans Switchy. That lean makes it expect a switch after a short streak.</li>
+        <li>A long streak is itself evidence for Sticky. Past some length the average learner expects a continuation. With less experience that point comes sooner and the expectation gets stronger.</li>
+      </ul>
+    </section>
+
+    <section id="controls" aria-labelledby="controls-h" class="panel">
+      <h2 id="controls-h" style="margin-top:0">Set up the learner</h2>
+
+      <div class="main-slider field">
+        <label class="big" for="n-slider">Outcomes the learner has already seen: <output id="n-out" for="n-slider">40</output></label>
+        <span class="hint">Think of an adult with more or less experience of this kind of process. The learner has conditioned on exactly this many fair-coin outcomes, remembered perfectly.</span>
+        <div class="slider-row">
+          <input id="n-slider" type="range" min="0" max="300" step="1" value="40" aria-describedby="n-help">
+          <label class="small" for="n-number" style="display:inline">or type</label>
+          <input id="n-number" type="number" min="0" max="300" step="1" value="40" inputmode="numeric">
+        </div>
+        <div class="quick" role="group" aria-label="Example amounts of experience">
+          <button type="button" data-n="0">0</button>
+          <button type="button" data-n="10">10</button>
+          <button type="button" data-n="25">25</button>
+          <button type="button" data-n="40">40</button>
+          <button type="button" data-n="100">100</button>
+          <button type="button" data-n="300">300</button>
+        </div>
+        <p id="n-help" class="small">Range 0 to 300. With 0 the learner knows only its prior.</p>
+      </div>
+
+      <div class="grid2" style="margin-top:14px">
+        <div class="field">
+          <label for="shown">What the learner is shown next</label>
+          <span class="hint">Then it is asked how likely the streak is to continue.</span>
+          <select id="shown">
+            <option value="streak" selected>One miss, then a streak of s hits (paper's Fig. 6 and 7)</option>
+            <option value="iid8">A random 8-outcome sequence that ends in a streak of s (paper's Sections 4 and 5)</option>
+          </select>
+        </div>
+        <div class="field">
+          <span class="lab">Compare with these two amounts of experience</span>
+          <span class="hint">Drawn as dashed grey curves.</span>
+          <div class="slider-row">
+            <label for="cmp-a" class="small" style="display:inline">less</label>
+            <input id="cmp-a" type="number" min="0" max="300" step="1" value="10" inputmode="numeric">
+            <label for="cmp-b" class="small" style="display:inline">more</label>
+            <input id="cmp-b" type="number" min="0" max="300" step="1" value="100" inputmode="numeric">
+          </div>
+        </div>
+      </div>
+
+      <details class="panel" id="prior-details" style="margin-bottom:0">
+        <summary>Prior beliefs and the kind of shift (defaults are the paper's)</summary>
+        <p class="small">The paper's main simulations start the learner at one third each, with Switchy and Sticky chains that build up to a 90% shift over 4 steps of streak. Change them to see how much the result depends on the prior.</p>
+        <div class="grid2">
+          <div class="field">
+            <label for="w-swi">Prior weight on Switchy: <output id="w-swi-out" for="w-swi">1</output></label>
+            <input id="w-swi" type="range" min="0" max="20" step="1" value="1">
+          </div>
+          <div class="field">
+            <label for="w-ste">Prior weight on Steady: <output id="w-ste-out" for="w-ste">1</output></label>
+            <input id="w-ste" type="range" min="0" max="20" step="1" value="1">
+          </div>
+          <div class="field">
+            <label for="w-sti">Prior weight on Sticky: <output id="w-sti-out" for="w-sti">1</output></label>
+            <input id="w-sti" type="range" min="0" max="20" step="1" value="1">
+          </div>
+          <div class="field">
+            <span class="lab">Resulting prior</span>
+            <span id="prior-text" class="small">Switchy 33.3%, Steady 33.3%, Sticky 33.3%</span>
+          </div>
+          <div class="field">
+            <label for="steps">Steps for the shift to build up: <output id="steps-out" for="steps">4</output></label>
+            <span class="hint">After a streak of this length the shift is at its maximum. One step is outside the paper's argument (its Note 15: asymmetric convergence needs chains of more than one step), so expect a different pattern.</span>
+            <input id="steps" type="range" min="1" max="10" step="1" value="4">
+          </div>
+          <div class="field">
+            <label for="degree">Maximum shift: <output id="degree-out" for="degree">90%</output></label>
+            <span class="hint">Switchy then switches with this probability after a long streak; Sticky continues with it.</span>
+            <input id="degree" type="range" min="55" max="95" step="5" value="90">
+          </div>
+        </div>
+        <div class="field" style="margin-top:10px">
+          <label style="font-weight:600"><input id="mixture" type="checkbox"> The learner is also unsure how fast the shift builds up (Switchy and Sticky chains with 1 to 10 steps)</label>
+          <span class="hint">As in the paper's Fig. 4 (bottom right). The prior weights are then split evenly over the ten speeds. When this is on the "steps" slider is ignored.</span>
+        </div>
+        <div class="quick" role="group" aria-label="Presets">
+          <button type="button" id="preset-default">Paper default (1 : 1 : 1, 4 steps, 90%)</button>
+          <button type="button" id="preset-mixture">Paper Fig. 4 setup (unsure about speed)</button>
+        </div>
+      </details>
+    </section>
+
+    <section aria-labelledby="results-h">
+      <h2 id="results-h">What the average learner expects</h2>
+      <p id="summary" class="summary" aria-live="polite">Calculating&hellip;</p>
+      <p id="status" class="status" aria-live="polite"></p>
+
+      <figure>
+        <div class="chart" id="chart1-wrap">
+          <svg id="chart1" role="img" aria-label="Chart"></svg>
+          <div class="tooltip" id="tip1" hidden></div>
+        </div>
+        <div class="legend" id="legend1"></div>
+        <figcaption><strong>Figure 1. Average expectation that a streak continues.</strong> Each point is the mean, over simulated learners, of the probability they give to another outcome of the same kind after a streak of that length. Below the dotted 50% line the learner expects a switch (gambler's reasoning); above it, a continuation (hot-hand reasoning). With less experience the curve crosses 50% sooner and climbs higher.</figcaption>
+      </figure>
+
+      <div class="table-scroll">
+        <table id="summary-table">
+          <caption class="small" style="text-align:left">The same curves in numbers</caption>
+          <thead>
+            <tr><th scope="col">Outcomes seen</th><th scope="col">Lowest average P(continue)</th><th scope="col">First streak with P &gt; 50%</th><th scope="col">P(continue) after 8 in a row</th><th scope="col">Learners above 50% after 4 in a row</th></tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+
+      <details class="panel">
+        <summary>Full table: average probability of a continuation by streak length</summary>
+        <div class="table-scroll"><table id="full-table"></table></div>
+      </details>
+
+      <figure>
+        <div class="chart">
+          <svg id="chart3" role="img" aria-label="Chart"></svg>
+          <div class="tooltip" id="tip3" hidden></div>
+        </div>
+        <div class="legend" id="legend3"></div>
+        <figcaption><strong>Figure 2. The same learners, seen from the other side.</strong> For streaks of 2, 4 and 8, the average probability of a continuation as the amount of experience grows. Every line heads toward 50%, the truth for a fair coin. The longer the streak, the more experience it takes before the line comes down to 50%. The dashed vertical line is the experience set above.</figcaption>
+      </figure>
+
+      <figure>
+        <div class="chart">
+          <svg id="chart2" role="img" aria-label="Chart"></svg>
+          <div class="tooltip" id="tip2" hidden></div>
+        </div>
+        <div class="legend" id="legend2"></div>
+        <figcaption><strong>Figure 3. Why: what the average learner believes about the process.</strong> Mean posterior probability of each kind of process after seeing fair-coin outcomes. Sticky falls faster than Switchy at every amount of experience (the paper's &ldquo;asymmetric convergence&rdquo;, its Fig. 4 top right). With the default prior, the values after 20 and 50 outcomes are within 0.01 of the numbers printed in the paper's Section 4.</figcaption>
+      </figure>
+    </section>
+
+    <section aria-labelledby="example-h" class="panel">
+      <h2 id="example-h" style="margin-top:0">One worked example: two learners, one coin</h2>
+      <p>This example always uses the paper's default settings, whatever the controls above say. The coin flips are produced by this page's own pseudo-random generator (a fair coin, so a Steady process); they are simulated, not real data. Both learners watch the same coin. Learner A has seen the first 10 flips, learner B all 40. Then both are shown a miss followed by 5 hits in a row.</p>
+      <p class="flips" id="ex-flips" aria-label="The flips"></p>
+      <div class="quick"><button type="button" id="ex-new">Draw a different simulated coin</button><span class="small" id="ex-seed"></span></div>
+      <div class="table-scroll" style="margin-top:10px">
+        <table id="ex-table">
+          <thead>
+            <tr><th scope="col">Learner</th><th scope="col">Belief</th><th scope="col">Switchy</th><th scope="col">Steady</th><th scope="col">Sticky</th></tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      <p id="ex-text"></p>
+    </section>
+
+    <section aria-labelledby="claims-h">
+      <h2 id="claims-h">What the model does and does not claim</h2>
+      <ul class="tight">
+        <li><strong>It claims</strong> (the paper's argument) that a gambler's-fallacy-like expectation is what a rational learner would have if it were unsure whether the process is independent and had seen limited data. The numbers on this page are simulation results of that learner, not measurements of people.</li>
+        <li><strong>It predicts, qualitatively,</strong> that with less experience the average learner shifts sooner from expecting a switch to expecting a continuation and expects it more strongly. The paper reports the same pattern in adult studies that compare familiar processes (a coin, an urn) with unfamiliar ones (a firm's earnings, a stock), and reads &ldquo;familiar&rdquo; as &ldquo;more data&rdquo; (its Section 5.2).</li>
+        <li>How far the average learner dips below 50% is not steady in experience. With the default settings the dip is deepest at a moderate amount of experience (about 25 outcomes): a learner with none has no lean toward Switchy yet, and a learner with a lot has become confident of Steady. What shrinks steadily with experience is the pull toward continuations after long streaks.</li>
+        <li><strong>It does not</strong> say how many outcomes any real adult has seen, and the paper does not fit its parameters to data. Which amount of experience counts as &ldquo;familiar&rdquo; depends on how easy the process is to learn about.</li>
+        <li><strong>It does not</strong> model working memory. The experience here is the length of the sequence the learner has conditioned on, remembered perfectly. The paper's separate limited-memory version (its Section 4, &ldquo;unpacking&rdquo;) is not on this page.</li>
+        <li>The paper's other simulations (probability estimates versus binary predictions, producing random sequences, other hit rates) are not on this page. The prior and chain settings above go beyond the paper's defaults only where the paper itself varies them (its Section 6).</li>
+      </ul>
+      <h3>Choices the paper leaves open</h3>
+      <ul class="tight">
+        <li>How a sequence starts: the first outcome has probability 0.5 under every hypothesis, and each sequence the learner sees is treated as a fresh run of the chain.</li>
+        <li>How a streak is shown. The default (one miss, then s hits) reproduces the paper's Fig. 6 curves for 25- and 40-outcome learners to within about 0.01 as read by eye. The other option averages over all 8-outcome IID sequences that end in a streak of s.</li>
+        <li>&ldquo;Uniformly unsure&rdquo; over speeds 1 to 10 is read as equal weight on all 21 chains, Steady included (1/21). That reading gives 16% and 7.5% where the paper reports about 17% and 8% in its Section 4.</li>
+        <li>The averages are over 1000 simulated learners (the same seeded coin flips every time), so curves carry a sampling error of about 0.002 in probability.</li>
+      </ul>
+      <p>This page's JavaScript was checked against an independent Python implementation of the same model (they agree to 1e-9) and against the numbers printed in the paper's Section 4 and Figure 6.</p>
+    </section>
+  </main>
+
+  <footer>
+    <p>Paper: K. Dorst (2026), <a href="https://doi.org/10.1111/cogs.70171">doi:10.1111/cogs.70171</a> (open access, CC BY). This page runs entirely in your browser and collects nothing.</p>
+  </footer>
+</div>
+<script src="model.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

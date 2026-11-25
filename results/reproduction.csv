@@ -1,0 +1,33 @@
+id,source,where,quantity,paper,tolerance,ours,mc_se,difference,within_tolerance,note
+R1-switchy,text,"Section 4, Fig. 4 top right",mean posterior in Switchy after 20 outcomes (exact sum over 2^20 sequences),0.28,0.01,0.2868,0.0,0.0068,True,
+R1-steady,text,"Section 4, Fig. 4 top right",mean posterior in Steady after 20 outcomes (exact sum over 2^20 sequences),0.57,0.01,0.5701,0.0,0.0001,True,
+R1-sticky,text,"Section 4, Fig. 4 top right",mean posterior in Sticky after 20 outcomes (exact sum over 2^20 sequences),0.15,0.01,0.1431,0.0,-0.0069,True,
+R2-switchy,text,"Section 4, Fig. 4 top right",mean posterior in Switchy after 50 outcomes,0.13,0.01,0.1329,0.0004,0.0029,True,
+R2-steady,text,"Section 4, Fig. 4 top right",mean posterior in Steady after 50 outcomes,0.84,0.01,0.8388,0.0006,-0.0012,True,
+R2-sticky,text,"Section 4, Fig. 4 top right",mean posterior in Sticky after 50 outcomes,0.03,0.01,0.0282,0.0002,-0.0018,True,
+R3-start,figure,Fig. 4 bottom right (by eye),"mean posterior in Steady at the start, 21 equally likely chains",0.05,0.01,0.0476,0.0,-0.0024,True,1/21 = 0.048
+R3-250,text,Section 4 (p. 13),mean posterior of all Switchy chains after 250 outcomes (speeds 1-10),0.17,0.01,0.162,0.001,-0.008,True,paper: 'around 17%'
+R3-400,text,Section 4 (p. 13),mean posterior of all Switchy chains after 400 outcomes (speeds 1-10),0.08,0.01,0.0749,0.0005,-0.0051,True,paper: 'still 8%'
+R4-s1,text,Section 5.1 (p. 17),40-outcome learners: mean probability that a streak of 1 continues,0.485,0.01,0.4858,0.0001,0.0008,True,"paper: 48.5% at 1, 47.5% at 3, 55% at 6"
+R4-s3,text,Section 5.1 (p. 17),40-outcome learners: mean probability that a streak of 3 continues,0.475,0.01,0.4767,0.0002,0.0017,True,"paper: 48.5% at 1, 47.5% at 3, 55% at 6"
+R4-s6,text,Section 5.1 (p. 17),40-outcome learners: mean probability that a streak of 6 continues,0.55,0.01,0.5549,0.0003,0.0049,True,"paper: 48.5% at 1, 47.5% at 3, 55% at 6"
+R5-n25-s1,figure,Fig. 6 top middle (by eye),25-outcome learners: mean probability that a streak of 1 continues,0.483,0.02,0.4822,0.0,-0.0008,True,
+R5-n25-s2,figure,Fig. 6 top middle (by eye),25-outcome learners: mean probability that a streak of 2 continues,0.47,0.02,0.4716,0.0001,0.0016,True,
+R5-n25-s3,figure,Fig. 6 top middle (by eye),25-outcome learners: mean probability that a streak of 3 continues,0.477,0.02,0.4807,0.0002,0.0037,True,
+R5-n25-s4,figure,Fig. 6 top middle (by eye),25-outcome learners: mean probability that a streak of 4 continues,0.52,0.02,0.5234,0.0002,0.0034,True,
+R5-n25-s5,figure,Fig. 6 top middle (by eye),25-outcome learners: mean probability that a streak of 5 continues,0.582,0.02,0.5843,0.0001,0.0023,True,
+R5-n25-s6,figure,Fig. 6 top middle (by eye),25-outcome learners: mean probability that a streak of 6 continues,0.628,0.02,0.6292,0.0001,0.0012,True,
+R5-n25-s7,figure,Fig. 6 top middle (by eye),25-outcome learners: mean probability that a streak of 7 continues,0.67,0.02,0.6712,0.0001,0.0012,True,
+R5-n40-s1,figure,Fig. 6 top middle (by eye),40-outcome learners: mean probability that a streak of 1 continues,0.488,0.02,0.4858,0.0001,-0.0022,True,
+R5-n40-s2,figure,Fig. 6 top middle (by eye),40-outcome learners: mean probability that a streak of 2 continues,0.477,0.02,0.4757,0.0001,-0.0013,True,
+R5-n40-s3,figure,Fig. 6 top middle (by eye),40-outcome learners: mean probability that a streak of 3 continues,0.478,0.02,0.4767,0.0002,-0.0013,True,
+R5-n40-s4,figure,Fig. 6 top middle (by eye),40-outcome learners: mean probability that a streak of 4 continues,0.497,0.02,0.4963,0.0002,-0.0007,True,
+R5-n40-s5,figure,Fig. 6 top middle (by eye),40-outcome learners: mean probability that a streak of 5 continues,0.532,0.02,0.5304,0.0002,-0.0016,True,
+R5-n40-s6,figure,Fig. 6 top middle (by eye),40-outcome learners: mean probability that a streak of 6 continues,0.557,0.02,0.5549,0.0003,-0.0021,True,
+R5-n40-s7,figure,Fig. 6 top middle (by eye),40-outcome learners: mean probability that a streak of 7 continues,0.58,0.02,0.5774,0.0003,-0.0026,True,
+R6,text,Section 5.5 (p. 21) and Section 4,40-outcome learners shown IID 8-outcome sequences: overall mean probability of a continuation,0.484,0.01,0.4852,0.0003,0.0012,True,paper: mean 48.4% (and 'switch' 51.6%)
+R7,text,Section 4 (p. 14),40-outcome learners: mean number of switches in an 11-outcome sequence drawn from their posterior,5.13,0.02,5.1185,0.0012,-0.0115,True,"paper: 5.13, 95% CI [5.124, 5.131]; Steady gives exactly 5.00"
+R8-0,text,Section 5.3 (p. 20),40-outcome learners shown an 8-outcome sequence with 0-1 switches: mean P(continue),0.555,0.02,0.539,0.0005,-0.016,True,"paper used the specific sequences of Bloomfield & Hales, which we do not have; we average over all 8-outcome sequences with that many switches"
+R8-1,text,Section 5.3 (p. 20),40-outcome learners shown an 8-outcome sequence with 3-4 switches: mean P(continue),0.485,0.02,0.4798,0.0005,-0.0052,True,"paper used the specific sequences of Bloomfield & Hales, which we do not have; we average over all 8-outcome sequences with that many switches"
+R8-2,text,Section 5.3 (p. 20),40-outcome learners shown an 8-outcome sequence with 6-7 switches: mean P(continue),0.466,0.02,0.4745,0.0004,0.0085,True,"paper used the specific sequences of Bloomfield & Hales, which we do not have; we average over all 8-outcome sequences with that many switches"
+I1,text,Section 4 (p. 14),mean posterior in Steady after 150 outcomes (informational),0.95,0.05,0.9868,0.0004,0.0368,True,paper text: 'already around 95%'; its Fig. 4 shows about 0.98 here
